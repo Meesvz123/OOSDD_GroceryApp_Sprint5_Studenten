@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace Grocery.Core.Models
 {
-    internal class Category
+    public class Category
     {
+        int Id { get; set; }
+        string Name { get; set; }
+
+        public Category(int id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
     }
 }

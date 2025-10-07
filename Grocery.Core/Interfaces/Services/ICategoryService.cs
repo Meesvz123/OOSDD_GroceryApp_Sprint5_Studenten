@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grocery.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Grocery.Core.Interfaces.Services
 {
-    public interface ICategoryService 
+    public interface ICategoryService
     {
+        IEnumerable<ProductCategory> GetAll();
     }
 }

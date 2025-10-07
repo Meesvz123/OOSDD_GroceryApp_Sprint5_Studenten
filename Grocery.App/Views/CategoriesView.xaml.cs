@@ -1,11 +1,12 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Grocery.App.ViewModels;
+using Grocery.Core.Models;
+
 
 namespace Grocery.App.Views
 {
-    
+    public partial class CategoriesView : ContentPage
+        {
+            private readonly CategoriesViewModel _viewModel;
+        }
+
 }
