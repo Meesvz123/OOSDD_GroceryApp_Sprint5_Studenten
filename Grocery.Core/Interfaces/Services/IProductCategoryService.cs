@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Grocery.Core.Models;
 
-namespace Grocery.Core.Interfaces.Services
+
+namespace Grocery.Core.Interfaces
 {
     public interface IProductCategoryService
     {
+        Task<IEnumerable<ProductCategory>> GetProductsByCategoryAsync(int categoryId);
+        Task AddProductToCategoryAsync(int categoryId, ProductCategory productCategory);
+        Task RemoveProductFromCategoryAsync(ProductCategory productCategory);
     }
 }

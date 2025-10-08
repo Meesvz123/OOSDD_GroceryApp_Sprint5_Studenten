@@ -15,7 +15,7 @@ namespace Grocery.App.ViewModels
             Load();
         }
 
-        public override void Load()
+        public void Load()
         {
             Products.Clear();
             foreach (var item in _groceryListItemsService.GetBestSellingProducts()) Products.Add(item);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grocery.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,7 @@ namespace Grocery.Core.Interfaces.Repositories
 {
     public interface ICategoryRepository
     {
+        Task<IEnumerable<Category>> GetAllAsync();
+        Task<Category?> GetByIdAsync(int id);
     }
 }

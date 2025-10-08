@@ -37,5 +37,10 @@ namespace Grocery.Core.Services
         {
             return _productRepository.Update(item);
         }
+
+        public Task<IEnumerable<object>> GetAllProductsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -6,19 +6,22 @@ using System.Threading.Tasks;
 
 namespace Grocery.Core.Models
 {
-    public partial class ProductCategory
+    public class ProductCategory
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int ProductId1 { get; set; }
+        public string ProductName { get; set; }
+
+        public int ProductId { get; set; }
         public int CategoryId { get; set; }
-        
-        public ProductCategory(int id, string name, int productId1, int categoryId)
+
+        public ProductCategory(int id, string productname, int productId, int categoryId)
         {
             Id = id;
-            Name = name;
-            ProductId1 = productId1;
+            ProductName = productname;
+            ProductId = productId;
             CategoryId = categoryId;
         }
+
+        public ProductCategory() { }
     }
 }

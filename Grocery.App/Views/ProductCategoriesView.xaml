@@ -1,7 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Grocery.App.Views.ProductCategoriesView"
              xmlns:vm="clr-namespace:Grocery.App.ViewModels"
              xmlns:m="clr-namespace:Grocery.Core.Models;assembly=Grocery.Core"
-             x:DataType="vm:ProductCategoriesViewModel">
+             x:Class="Grocery.App.Views.ProductCategoriesView"
+             x:DataType="vm:ProductCategoriesViewModel"
+             Title="Categorie Detail">
+
+    <Shell.TitleView>
+        <Grid>
+            <Label Text="Producten in categorie" FontSize="Large" HorizontalOptions="Center" VerticalOptions="Center" />
+        </Grid>
+    </Shell.TitleView>
+
+    <Border Stroke="#C49B33" StrokeThickness="4" Padding="10" Margin="10">
+        <CollectionView ItemsSource="{Binding Products}" Margin="0">
+
+            <CollectionView.Header>
+                <Grid Padding="0,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Text="ID" FontAttributes="Bold" HorizontalOptions="Start"/>
+                    <Label Grid.Column="1" Text="Productnaam" FontAttributes="Bold"/>
+                    <Label Grid.Column="2" Text="Acties" FontAttributes="Bold" HorizontalOptions="End"/>
+                </Grid>
+            </CollectionView.Header>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="m:ProductCategory">
+                    <Grid Padding="5" Margin="0,0,0,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" Text="{Binding Id}" HorizontalOptions="Start" />
+                        <Label Grid.Column="1" Text="{Binding ProductName}" />
+                        <Button Grid.Column="2" Text="Verwijderen"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ProductCategoriesViewModel}}, Path=RemoveProductCommand}"
+                                CommandParameter="{Binding .}" 
+                                BackgroundColor="#C49B33"
+                                TextColor="White"
+                                Padding="5,0"
+                                CornerRadius="5"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Border>
 </ContentPage>

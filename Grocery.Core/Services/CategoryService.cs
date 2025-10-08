@@ -1,22 +1,19 @@
-﻿using Grocery.Core.Interfaces.Repositories;
-using Grocery.Core.Interfaces.Services;
+﻿using Grocery.Core.Interfaces;
+using Grocery.Core.Interfaces.Repositories;
 using Grocery.Core.Models;
-
 namespace Grocery.Core.Services
 {
     public class CategoryService : ICategoryService
     {
-        private readonly ICategoryService _categoryRepository;
+        private readonly ICategoryRepository _repository;
 
-        public CategoryService(IProductRepository categoryRepository)
+        public CategoryService(ICategoryRepository repository)
         {
-            _categoryRepository = (ICategoryService?)categoryRepository;
+            _repository = repository;
         }
 
-        public List<Product> GetAll()
-        {
-            return (List<Category>)_categoryRepository.GetAll();
-        }
+        public Task<IEnumerable<Category>> GetAllCategoriesAsync() => _repository.GetAllAsync();
+
+        public Task<Category?> GetCategoryByIdAsync(int id) => _repository.GetByIdAsync(id);
     }
 }
-

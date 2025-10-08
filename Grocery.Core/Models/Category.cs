@@ -8,13 +8,13 @@ namespace Grocery.Core.Models
 {
     public class Category
     {
-        int Id { get; set; }
-        string Name { get; set; }
+        public int Id { get; set; }
+        public string CategoryName { get; set; }
 
-        public Category(int id, string name)
+        public Category(int id, string categoryname)
         {
             Id = id;
-            Name = name;
+            CategoryName = categoryname;
         }
     }
 }
