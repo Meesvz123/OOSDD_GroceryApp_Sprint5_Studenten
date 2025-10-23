@@ -1,4 +1,7 @@
 using Grocery.Core.Helpers;
+using Grocery.Core.Interfaces;
+using Grocery.Core.Models;
+using Moq;
 
 namespace TestCore
 {
@@ -8,7 +11,6 @@ namespace TestCore
         public void Setup()
         {
         }
-
 
         //Happy flow
         [Test]
@@ -41,6 +43,35 @@ namespace TestCore
         public void TestPasswordHelperReturnsFalse(string password, string passwordHash)
         {
             Assert.IsFalse(PasswordHelper.VerifyPassword(password, passwordHash));
+        }
+
+ 
+        [Test]
+        public async Task CategoriesViewModel_LoadData_FillsCategories()
+        {
+            // Arrange
+            var mockCategoryService = new Mock<ICategoryService>();
+
+            mockCategoryService
+                .Setup(s => s.GetAllCategoriesAsync())
+                .ReturnsAsync(new List<Category>
+                {
+                    new Category(1, "Fruit"),
+                    new Category(2, "Vegetables")
+
+                });
+
+            var vm = new CategoriesViewModel(mockCategoryService.Object);
+
+            // Act
+            await vm.LoadData();
+
+            // Assert
+            Assert.AreEqual(2, vm.Categories.Count);
+            Assert.IsTrue(vm.Categories.Exists(c => c.Name == "Fruit"));
+            Assert.IsTrue(vm.Categories.Exists(c => c.Name == "Vegetables"));
+
+            mockCategoryService.Verify(s => s.GetAllCategoriesAsync(), Times.Once);
         }
     }
 }
