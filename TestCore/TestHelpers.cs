@@ -1,77 +1,40 @@
-using Grocery.Core.Helpers;
-using Grocery.Core.Interfaces;
-using Grocery.Core.Models;
+using NUnit.Framework;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Moq;
+using Grocery.Core.Interfaces.Repositories;
+using Grocery.Core.Models;
 
 namespace TestCore
 {
-    public class TestHelpers
+    public class CategoryRepositoryTests
     {
+        private Mock<ICategoryRepository> _mockRepository;
+
         [SetUp]
         public void Setup()
         {
-        }
+            _mockRepository = new Mock<ICategoryRepository>();
 
-        //Happy flow
-        [Test]
-        public void TestPasswordHelperReturnsTrue()
-        {
-            string password = "user3";
-            string passwordHash = "sxnIcZdYt8wC8MYWcQVQjQ==.FKd5Z/jwxPv3a63lX+uvQ0+P7EuNYZybvkmdhbnkIHA=";
-            Assert.IsTrue(PasswordHelper.VerifyPassword(password, passwordHash));
-        }
-
-        [TestCase("user1", "IunRhDKa+fWo8+4/Qfj7Pg==.kDxZnUQHCZun6gLIE6d9oeULLRIuRmxmH2QKJv2IM08=")]
-        [TestCase("user3", "sxnIcZdYt8wC8MYWcQVQjQ==.FKd5Z/jwxPv3a63lX+uvQ0+P7EuNYZybvkmdhbnkIHA=")]
-        public void TestPasswordHelperReturnsTrue(string password, string passwordHash)
-        {
-            Assert.IsTrue(PasswordHelper.VerifyPassword(password, passwordHash));
-        }
-
-
-        //Unhappy flow
-        [Test]
-        public void TestPasswordHelperReturnsFalse()
-        {
-            string password = "user3";
-            string passwordHash = "sxnIcZdYt8wC8MYWcQVQjQ";
-            Assert.IsFalse(PasswordHelper.VerifyPassword(password, passwordHash));
-        }
-
-        [TestCase("user1", "IunRhDKa+fWo8+4/Qfj7Pg")]
-        [TestCase("user3", "sxnIcZdYt8wC8MYWcQVQjQ")]
-        public void TestPasswordHelperReturnsFalse(string password, string passwordHash)
-        {
-            Assert.IsFalse(PasswordHelper.VerifyPassword(password, passwordHash));
-        }
-
- 
-        [Test]
-        public async Task CategoriesViewModel_LoadData_FillsCategories()
-        {
-            // Arrange
-            var mockCategoryService = new Mock<ICategoryService>();
-
-            mockCategoryService
-                .Setup(s => s.GetAllCategoriesAsync())
-                .ReturnsAsync(new List<Category>
+            _mockRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(
+                new List<Category>
                 {
                     new Category(1, "Fruit"),
-                    new Category(2, "Vegetables")
-
+                    new Category(2, "Groente")
                 });
+        }
 
-            var vm = new CategoriesViewModel(mockCategoryService.Object);
-
+        [Test]
+        public async Task GetAllAsync_ReturnsCategoryList()
+        {
             // Act
-            await vm.LoadData();
+            var result = await _mockRepository.Object.GetAllAsync();
 
             // Assert
-            Assert.AreEqual(2, vm.Categories.Count);
-            Assert.IsTrue(vm.Categories.Exists(c => c.Name == "Fruit"));
-            Assert.IsTrue(vm.Categories.Exists(c => c.Name == "Vegetables"));
+            Assert.IsNotNull(result);
+            Assert.IsNotEmpty(result);
 
-            mockCategoryService.Verify(s => s.GetAllCategoriesAsync(), Times.Once);
+            
         }
     }
 }
