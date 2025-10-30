@@ -6,13 +6,15 @@ namespace Grocery.Core.Data.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly List<Product> products;
+
+        public List<Product> Products { get; } = new();
         public ProductRepository()
         {
             products = [
-                new Product(1, "Melk", 300, 1.49, new DateOnly(2025, 9, 25)),
-                new Product(2, "Kaas", 100, 3.29, new DateOnly(2025, 9, 30)),
-                new Product(3, "Brood", 400, 1.19, new DateOnly(2025, 9, 12)),
-                new Product(4, "Cornflakes", 0, 2.39, new DateOnly(2025, 12, 31))];
+                new Product(1, "Melk", 300, 1.49, 1, new DateOnly(2025, 9, 25)),
+                new Product(2, "Kaas", 100, 3.29, 1, new DateOnly(2025, 9, 30)),
+                new Product(3, "Brood", 400, 1.19, 2, new DateOnly(2025, 9, 12)),
+                new Product(4, "Cornflakes", 0, 2.39, 3, new DateOnly(2025, 12, 31))];
         }
         public List<Product> GetAll()
         {

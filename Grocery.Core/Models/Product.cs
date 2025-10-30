@@ -10,13 +10,16 @@ namespace Grocery.Core.Models
         public DateOnly ShelfLife { get; set; }
 
         public double Prijs { get; set; }
-        public Product(int id, string name, int stock, double prijs) : this(id, name, stock, prijs, default) { }
+        public int CategoryId { get; set; }
+        public Product(int id, string name, int stock, double prijs, int categoryId) : this(id, name, stock, prijs, categoryId, default) { }
 
-        public Product(int id, string name, int stock, double prijs, DateOnly shelfLife) : base(id, name) 
+        public Product(int id, string name, int stock, double prijs, int categoryId, DateOnly shelfLife) : base(id, name) 
         {
             Stock = stock;
             ShelfLife = shelfLife;
             Prijs = prijs;
+            CategoryId = categoryId;
+
         }
         public override string? ToString()
         {

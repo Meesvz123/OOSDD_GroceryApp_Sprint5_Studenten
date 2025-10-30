@@ -7,7 +7,7 @@ namespace Grocery.App.ViewModels
         [ObservableProperty]
         string title = "";
 
-        public virtual void Load() { }
+        public virtual void Load(int id) { }
         public virtual void OnAppearing() { }
         public virtual void OnDisappearing() { }
     }
